@@ -10,11 +10,11 @@ class TestDepartment:
     def drop_tables(self):
         '''drop table prior to each test.'''
         CURSOR.execute("DROP TABLE IF EXISTS departments")
+        Department.create_table()
 
     def test_creates_table(self):
         '''contains method "create_table()" that creates table "departments" if it does not exist.'''
 
-        Department.create_table()
         assert (CURSOR.execute("SELECT * FROM departments"))
 
     def test_drops_table(self):
@@ -41,7 +41,6 @@ class TestDepartment:
     def test_saves_department(self):
         '''contains method "save()" that saves a Department instance to the db and assigns the instance an id.'''
 
-        Department.create_table()
         department = Department("Payroll", "Building A, 5th Floor")
         department.save()
 
@@ -56,7 +55,6 @@ class TestDepartment:
     def test_creates_department(self):
         '''contains method "create()" that creates a new row in the db using parameter data and returns a Department instance.'''
 
-        Department.create_table()
         department = Department.create("Payroll", "Building A, 5th Floor")
 
         sql = """
@@ -69,7 +67,7 @@ class TestDepartment:
 
     def test_updates_row(self):
         '''contains a method "update()" that updates an instance's corresponding db row to match its new attribute values.'''
-        Department.create_table()
+       
 
         department1 = Department.create(
             "Human Resources", "Building C, East Wing")
@@ -107,7 +105,7 @@ class TestDepartment:
 
     def test_deletes_record(self):
         '''contains a method "delete()" that deletes the instance's corresponding db row'''
-        Department.create_table()
+    
 
         department1 = Department.create(
             "Human Resources", "Building C, East Wing")
